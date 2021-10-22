@@ -72,7 +72,7 @@ Flight::route('POST|GET /filter(/@method)', function($method){
       $filterMethod = new TestFilterMethod($htmlNormalized);
   }
   // respond with JSON data
-  Flight::json(new ResponseData($filterMethod->getReplaceTokens(), $htmlChecksum));
+  Flight::json(new ResponseData($filterMethod->getReplaceTokens(), $htmlChecksum, $method));
 });
 
 
