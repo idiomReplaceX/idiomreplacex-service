@@ -41,7 +41,7 @@ This .htaccess file requires URL rewriting.
 
 Make sure to enable Apache’s mod_rewrite module and your virtual host is configured with the AllowOverride option so that the .htaccess rewrite rules can be used: To do this, the file /etc/apache2/apache2.conf must be opened in an editor with root privileges.
 
-Change the <Directory ...> directive from AllowOveride None to AllowOveride All.
+Change the <Directory ...> directive from AllowOverride None to AllowOverride All.
 
 Example
 
