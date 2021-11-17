@@ -74,3 +74,9 @@ RewriteEngine on
 RewriteRule ^$ src/ [L]
 RewriteRule (.*) src/$1 [L]
 ~~~
+
+## Controller end points
+
+* POST|GET /filter(/@method)
+* GET /methods
+
