@@ -5,8 +5,8 @@
 with httpie:
 
 ~~~
-http --verify false  'https://bgbm14463lap/service/methods'     
-http --verify false  'https://bgbm14463lap/service/filter' Content-Type:"application/json"  html="hallo du <strong>welt</strong>, wie geht es dir? Hoffe du hast kein Fieber" htmlChecksum="435335345"     
+http --verify false  'https://idiomreplacex.de/service/methods'     
+http --verify false  'https://idiomreplacex.de/service/filter' Content-Type:"application/json"  html="hallo du <strong>welt</strong>, wie geht es dir? Hoffe du hast kein Fieber" htmlChecksum="435335345"     
 ~~~
 
 ## Troubleshooting
