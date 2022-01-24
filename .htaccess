@@ -1,5 +1,4 @@
 #
 # this .htaccess needs to be place at the document root
 #
-Header set Access-Control-Allow-Origin "*"
-Header set Access-Control-Allow-Headers "*"
+#Header set Access-Control-Allow-Origin *
