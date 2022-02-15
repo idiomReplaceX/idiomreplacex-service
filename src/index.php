@@ -66,6 +66,7 @@ Flight::route('POST|GET /filter(/@method)', function($method){
   $htmlNormalized =  Normalizer::normalize($html);
 
   switch($method){
+    case FilterMethods::KACKSPECHT:
     case FilterMethods::TOURETTE:
     case FilterMethods::DADA:
     default:
