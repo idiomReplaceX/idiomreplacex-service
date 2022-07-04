@@ -60,15 +60,42 @@ Flight::route('POST|GET /filter(/@method)', function($method){
   }
 
   if(!$html){
-    Flight::halt(400, 'parameter text missing in POST body or as request parameter.<br>Request.body=' . $request->getBody() . "<br>Request.data=" . var_export($request->data, true));
+    Flight::halt(400, 'HAH parameter text missing in POST body or as request parameter.<br>Request.body=' . $request->getBody() . "<br>Request.data=" . var_export($request->data, true));
   }
 
   $htmlNormalized =  Normalizer::normalize($html);
 
   switch($method){
     case FilterMethods::KACKSPECHT:
-    case FilterMethods::TOURETTE:
-    case FilterMethods::DADA:
+        $filterMethod = new TestFilterMethod($htmlNormalized);
+        break;
+    case FilterMethods::WEICHSPUELER:
+        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::WEICHSPUELER);
+        break;
+    case FilterMethods::KLARSPUELER:
+        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::KLARSPUELER);
+        break;
+    case FilterMethods::VERNIS:
+        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::VERNIS);
+        break;
+    case FilterMethods::POLYNESIEN:
+        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::POLYNESIEN);
+        break;
+    case FilterMethods::LESEBRILLE:
+        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::LESEBRILLE);
+        break;
+    case FilterMethods::LAUT:
+        $filterMethod = new LautFilterMethod($htmlNormalized);
+        break;
+    case FilterMethods::NOVERB:
+        $filterMethod = new NoVerbFilterMethod($htmlNormalized);
+        break;
+    case FilterMethods::XX:
+        $filterMethod = new XXFilterMethod($htmlNormalized);
+        break;
+    case FilterMethods::BASISFORM:
+        $filterMethod = new BasisformFilterMethod($htmlNormalized);
+        break;
     default:
       $filterMethod = new TestFilterMethod($htmlNormalized);
   }
