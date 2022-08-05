@@ -1,20 +1,53 @@
 <?php
 
+namespace classes\tokenizer;
+
 class ReplaceToken {
 
-  public $start = -1;
-  public $token = null;
-  public $replacement = null;
+  private $replacement = NULL;
+
+  private $textToken;
 
   /**
-   * @param int $start
-   * @param null $token
-   * @param null $replacement
+   * @param $textToken
+   * @param \classes\tokenizer\TextToken $replacement
    */
-  public function __construct(int $start, $token, $replacement) {
-    $this->start = $start;
-    $this->token = $token;
+  public function __construct($textToken, TextToken $replacement) {
+    $this->textToken = $textToken;
     $this->replacement = $replacement;
   }
+
+  /**
+   * @return TextToken
+   */
+  public function getToken(): ?TextToken {
+    return $this->textToken->getToken();
+  }
+
+
+  /**
+   * @return int
+   */
+  public function getStart(): int {
+    return $this->textToken->getStart();
+  }
+
+  /**
+   * @return string
+   */
+  public function getReplacement(): ?string {
+    return $this->replacement;
+  }
+
+  /**
+   * @param string $replacement
+   */
+  public function setReplacement(string $replacement): void {
+    $this->replacement = $replacement;
+  }
+
+
+
+
 
 }

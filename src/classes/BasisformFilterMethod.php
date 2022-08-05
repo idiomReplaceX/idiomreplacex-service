@@ -1,5 +1,7 @@
 <?php
 
+use classes\tokenizer\ReplaceToken;
+
 class BasisformFilterMethod implements IFilterMethod {
 
   private $text =  null;
@@ -67,6 +69,7 @@ class BasisformFilterMethod implements IFilterMethod {
   }
 
   /**
+   * @param array $chrArray
    * @param int $startPos
    * @param int $endPos
    *

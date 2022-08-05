@@ -1,5 +1,7 @@
 <?php
 
+use classes\tokenizer\ReplaceToken;
+
 class XXFilterMethod implements IFilterMethod {
 
   private $text =  null;

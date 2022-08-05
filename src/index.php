@@ -67,7 +67,7 @@ Flight::route('POST|GET /filter(/@method)', function($method){
 
   switch($method){
     case FilterMethods::KACKSPECHT:
-        $filterMethod = new TestFilterMethod($htmlNormalized);
+        $filterMethod = new KackspechtFilterMethod($htmlNormalized);
         break;
     case FilterMethods::WEICHSPUELER:
         $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::WEICHSPUELER);
@@ -97,7 +97,7 @@ Flight::route('POST|GET /filter(/@method)', function($method){
         $filterMethod = new BasisformFilterMethod($htmlNormalized);
         break;
     default:
-      $filterMethod = new TestFilterMethod($htmlNormalized);
+      $filterMethod = new KackspechtFilterMethod($htmlNormalized);
   }
   // respond with JSON data
   Flight::json(new ResponseData($filterMethod->getReplaceTokens(), $htmlChecksum, $method));

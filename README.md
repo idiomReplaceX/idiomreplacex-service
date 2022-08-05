@@ -2,6 +2,14 @@
 
 ## Testing
 
+### Unit tests
+
+~~~
+./vendor/bin/phpunit tests
+~~~
+
+### Manual testing
+
 with httpie:
 
 ~~~

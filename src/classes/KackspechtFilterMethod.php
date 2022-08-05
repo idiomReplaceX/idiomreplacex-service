@@ -1,6 +1,6 @@
 <?php
 
-class TestFilterMethod implements IFilterMethod {
+class KackspechtFilterMethod implements IFilterMethod {
 
   private $tokenizer;
   private $markEveryNthWord = 2;
@@ -9,7 +9,7 @@ class TestFilterMethod implements IFilterMethod {
    * @param null $text
    */
   public function __construct($text) {
-    $this->tokenizer  = new HtmlReplacementTokenizer($text);
+    $this->tokenizer  = new HtmlReplacementTokenizer($text, $this);
   }
 
   /**
