@@ -23,9 +23,6 @@ final class KackspechtFilterMethodTest extends TestCase
     $this->assertEquals($kackspecht, $rpTokens[3]->getReplacement());
   }
 
-  /**
-   * @group ignore
-   */
   public function testSatzzeichen(): void
   {
     $kackspecht = '<span style="color: red">' . "Kackspecht" . '</span>';

@@ -12,6 +12,8 @@ class HtmlTextTokenizer {
   private static $HTML_EL_START = '<';
   private static $HTML_EL_END = '>';
 
+  private static $satz_zeichen = ",.!?;:\"\')(»«";
+
   public function __construct(string $text) {
     $this->text =  $text;
     $this->parseText();
@@ -49,21 +51,40 @@ class HtmlTextTokenizer {
         // reaching end of HTML element
         $isHtmlElement = false;
         $tokenStartPos = $i + 1;
-      } else if(HtmlTextTokenizer::$HTML_EL_START == $char){
+      } else if(HtmlTextTokenizer::$HTML_EL_START == $chrArray[$i] || isset($chrArray[$i + 1]) && $this->isSatzzeichen($chrArray, $i) &&  HtmlTextTokenizer::$HTML_EL_START == $chrArray[$i + 1]){
         // start of HTML element
         $isHtmlElement = true;
         $this->makeTextToken($chrArray, $tokenStartPos, $i);
-      } else if(!$isHtmlElement && $this->isWordBoundary($char) ){
+        if($this->isSatzzeichen($chrArray, $i)){
+          $i++;
+        }
+      } else if(!$isHtmlElement && $this->isWordBoundary($chrArray, $i) ){
         $this->makeTextToken($chrArray, $tokenStartPos, $i);
+        if($this->isSatzzeichen($chrArray, $i)){
+          $i++;
+        }
         $tokenStartPos = $i + 1;
       }
     }
   }
 
-  protected function isWordBoundary($char): bool {
-    return preg_match("/[[:space:]]/", $char);
+  protected function isWordBoundary($chrArray, $pos): bool {
+    return preg_match("/[[:space:]]/", $chrArray[$pos])
+      ||
+      ($this->isSatzzeichen($chrArray, $pos) && !isset($chrArray[$pos + 1]))
+      ||
+      (
+        $this->isSatzzeichen($chrArray, $pos) && isset($chrArray[$pos + 1]) &&
+        preg_match("/[[:space:]]/", $chrArray[$pos + 1])
+      );
     // return array_search($char, TestFilterMethod::$WHITESPACE_CHARS) !== false;
   }
+
+  protected function isSatzzeichen($chrArray, $pos): bool {
+    return strpos(HtmlTextTokenizer::$satz_zeichen, $chrArray[$pos]) !== false;
+  }
+
+
 
   /**
    * @param array $chrArray
