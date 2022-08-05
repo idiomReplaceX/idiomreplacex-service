@@ -9,18 +9,18 @@ class ReplaceToken {
   private $textToken;
 
   /**
-   * @param $textToken
-   * @param \classes\tokenizer\TextToken $replacement
+   * @param \classes\tokenizer\TextToken $textToken
+   * @param string $replacement
    */
-  public function __construct($textToken, TextToken $replacement) {
+  public function __construct(TextToken $textToken, string $replacement) {
     $this->textToken = $textToken;
     $this->replacement = $replacement;
   }
 
   /**
-   * @return TextToken
+   * @return string
    */
-  public function getToken(): ?TextToken {
+  public function getToken(): string {
     return $this->textToken->getToken();
   }
 

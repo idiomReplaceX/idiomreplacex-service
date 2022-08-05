@@ -4,27 +4,37 @@ namespace tokenizer;
 
 use classes\tokenizer\TextToken;
 
-class HtmlReplacementTokenizer {
+class HtmlTextTokenizer {
 
   private $text =  null;
-  private $rpTokens = [];
-  private $wordTokenCount = 0;
-
-  private $filterMethod;
+  private $textTokens = [];
 
   private static $HTML_EL_START = '<';
   private static $HTML_EL_END = '>';
 
-  public function __construct($text, IFilterMethod $filterMethod) {
-    $this->text =  text;
-    $this->filterMethod = $filterMethod;
-    $this->replacementTokens();
+  public function __construct(string $text) {
+    $this->text =  $text;
+    $this->parseText();
+  }
+
+  /**
+   * @return string
+   */
+  public function getText(): string {
+    return $this->text;
+  }
+
+  /**
+   * @return array
+   */
+  public function getTextTokens(): array {
+    return $this->textTokens;
   }
 
   /**
    * Walks the text and creates the list of ReplaceToken
    */
-  protected function replacementTokens() {
+  protected function parseText() {
 
     $isHtmlElement = false;
     $tokenStartPos = 0;
@@ -35,16 +45,16 @@ class HtmlReplacementTokenizer {
     $len = count($chrArray);
     for ($i = 0; $i < $len; $i++){
       $char = $chrArray[$i];
-      if(HtmlReplacementTokenizer::$HTML_EL_END == $char && $isHtmlElement){
+      if(HtmlTextTokenizer::$HTML_EL_END == $char && $isHtmlElement){
         // reaching end of HTML element
         $isHtmlElement = false;
         $tokenStartPos = $i + 1;
-      } else if(HtmlReplacementTokenizer::$HTML_EL_START == $char){
+      } else if(HtmlTextTokenizer::$HTML_EL_START == $char){
         // start of HTML element
         $isHtmlElement = true;
-        $this->makeReplacementToken($chrArray, $tokenStartPos, $i);
+        $this->makeTextToken($chrArray, $tokenStartPos, $i);
       } else if(!$isHtmlElement && $this->isWordBoundary($char) ){
-        $this->makeReplacementToken($chrArray, $tokenStartPos, $i);
+        $this->makeTextToken($chrArray, $tokenStartPos, $i);
         $tokenStartPos = $i + 1;
       }
     }
@@ -61,19 +71,15 @@ class HtmlReplacementTokenizer {
    * @param int $endPos
    *
    * @return boolean
-   *  TRUE if a new token has been created and added to the rpTokens list, otherwise FALSE
+   *  TRUE if a new token has been created and added to the textTokens list, otherwise FALSE
    */
-  protected function makeReplacementToken(array $chrArray, int $startPos, int $endPos): bool {
+  protected function makeTextToken(array $chrArray, int $startPos, int $endPos): bool {
     if ($startPos > -1 && $startPos < $endPos) {
       $tokenChars = array_slice($chrArray, $startPos, $endPos - $startPos);
       $tokenText = join($tokenChars);
       if(preg_match("/[[:alnum:]]/", $tokenText )){
-        $this->wordTokenCount++;
-        if($this->wordTokenCount % $this->markEveryNthWord == 0){
-          $newRPToken = new ReplaceToken(new TextToken($startPos, $tokenText), $this->replaceTokenText($tokenText));
-          $this->rpTokens[] = $newRPToken;
-          return true;
-        }
+        $this->textTokens[] = new TextToken($startPos, $tokenText);;
+        return true;
       }
     }
     return false;
