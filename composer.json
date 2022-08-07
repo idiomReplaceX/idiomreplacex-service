@@ -1,7 +1,7 @@
 {
   "name": "idiomreplacex/service",
   "description": "Filter service rest api for IdiomrReplaceX",
-  "license": "MPL2.0",
+  "license": "MIT",
   "minimum-stability": "dev",
   "require": {
     "php": ">=7.1",
@@ -10,7 +10,7 @@
   },
   "autoload": {
     "psr-4": {
-      "": [
+      "IdiomReplaceX\\": [
         "src/",
         "src/classes/"
       ]
@@ -18,5 +18,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^8"
+  },
+  "scripts": {
+    "test": "phpunit"
   }
 }
