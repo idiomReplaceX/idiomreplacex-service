@@ -24,6 +24,14 @@ class ReplaceToken {
     return $this->textToken->getToken();
   }
 
+  /**
+   * @return string
+   *   Returns the token text decoded by html_entity_decode()
+   */
+  public function tokenDecoded(): string {
+    return $this->textToken->tokenDecoded();
+  }
+
 
   /**
    * @return int
@@ -40,10 +48,12 @@ class ReplaceToken {
   }
 
   /**
+   * NOTE: The $replacement string will be encoded by htmlspecialchars()
+   *
    * @param string $replacement
    */
   public function setReplacement(string $replacement): void {
-    $this->replacement = $replacement;
+    $this->replacement = htmlspecialchars($replacement);
   }
 
 

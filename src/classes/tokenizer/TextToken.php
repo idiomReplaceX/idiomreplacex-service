@@ -10,9 +10,9 @@ class TextToken {
 
   /**
    * @param int $start
-   * @param null $token
+   * @param string $token
    */
-  public function __construct(int $start, $token) {
+  public function __construct(int $start, string $token) {
     $this->start = $start;
     $this->token = $token;
   }
@@ -32,16 +32,24 @@ class TextToken {
   }
 
   /**
-   * @return null
+   * @return string
    */
-  public function getToken() {
+  public function getToken(): string {
     return $this->token;
   }
 
   /**
-   * @param null $token
+   * @return string
+   *   Returns the token text decoded by html_entity_decode()
    */
-  public function setToken($token): void {
+  public function tokenDecoded(): string {
+    return html_entity_decode($this->token);
+  }
+
+  /**
+   * @param string $token
+   */
+  public function setToken(string $token): void {
     $this->token = $token;
   }
 
