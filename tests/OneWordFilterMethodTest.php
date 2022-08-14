@@ -6,7 +6,7 @@ final class OneWordFilterMethodTest extends TestCase
   public function testBasic(): void
   {
     
-    $filter = new OneWordFilterMethod('Tiere sind vielzellige Lebensformen, die eine Form des heterotrophen Stoff- und Energiewechsels betreiben.');
+    $filter = new OneWordFilterMethod('Tiere sind vielzellige Lebensformen, die eine Form des heterotrophen Stoff- und Energiewechsels betreiben.',FilterMethods::WEICHSPUELER);
     $rpTokens = $filter->getReplaceTokens();
     $this->assertEquals(5, count($rpTokens));
 
