@@ -10,17 +10,17 @@ final class KackspechtFilterMethodTest extends TestCase
     $rpTokens = $filter->getReplaceTokens();
     $this->assertEquals(4, count($rpTokens));
 
-    $this->assertEquals("ist", $rpTokens[0]->getToken());
-    $this->assertEquals($kackspecht, $rpTokens[0]->getReplacement());
+    $this->assertEquals("ist", $rpTokens[0]["token"]);
+    $this->assertEquals($kackspecht, $rpTokens[0]["replacement"]);
 
-    $this->assertEquals("Kunstprojekt", $rpTokens[1]->getToken());
-    $this->assertEquals($kackspecht, $rpTokens[1]->getReplacement());
+    $this->assertEquals("Kunstprojekt", $rpTokens[1]["token"]);
+    $this->assertEquals($kackspecht, $rpTokens[1]["replacement"]);
 
-    $this->assertEquals("literarischen", $rpTokens[2]->getToken());
-    $this->assertEquals($kackspecht, $rpTokens[2]->getReplacement());
+    $this->assertEquals("literarischen", $rpTokens[2]["token"]);
+    $this->assertEquals($kackspecht, $rpTokens[2]["replacement"]);
 
-    $this->assertEquals("von", $rpTokens[3]->getToken());
-    $this->assertEquals($kackspecht, $rpTokens[3]->getReplacement());
+    $this->assertEquals("von", $rpTokens[3]["token"]);
+    $this->assertEquals($kackspecht, $rpTokens[3]["replacement"]);
   }
 
   public function testSatzzeichen(): void

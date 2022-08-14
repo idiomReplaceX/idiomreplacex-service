@@ -11,17 +11,17 @@ final class XXXFilterMethodTest extends TestCase
 
     // $this->assertEquals(9, count($rpTokens)); // FIXME
 
-    $this->assertEquals("IdiomReplaceX", $rpTokens[0]->getToken());
-    $this->assertEquals($xxx, $rpTokens[0]->getReplacement());
+    $this->assertEquals("IdiomReplaceX", $rpTokens[0]["token"]);
+    $this->assertEquals($xxx, $rpTokens[0]["replacement"]);
 
-    $this->assertEquals("ist", $rpTokens[1]->getToken());
-    $this->assertEquals($xxx, $rpTokens[1]->getReplacement());
+    $this->assertEquals("ist", $rpTokens[1]["token"]);
+    $this->assertEquals($xxx, $rpTokens[1]["replacement"]);
 
-    $this->assertEquals("ein", $rpTokens[2]->getToken());
-    $this->assertEquals($xxx, $rpTokens[2]->getReplacement());
+    $this->assertEquals("ein", $rpTokens[2]["token"]);
+    $this->assertEquals($xxx, $rpTokens[2]["replacement"]);
 
-    $this->assertEquals("von", $rpTokens[7]->getToken());
-    $this->assertEquals($xxx, $rpTokens[7]->getReplacement());
+    $this->assertEquals("von", $rpTokens[7]["token"]);
+    $this->assertEquals($xxx, $rpTokens[7]["replacement"]);
   }
 
 }
