@@ -70,16 +70,16 @@ Flight::route('POST|GET /filter(/@method)', function($method){
         $filterMethod = new KackspechtFilterMethod($htmlNormalized);
         break;
     case FilterMethods::WEICHSPUELER:
-        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::WEICHSPUELER);
+        $filterMethod = new OneWordFilterMethod($htmlNormalized, FilterMethods::WEICHSPUELER);
         break;
     case FilterMethods::KLARSPUELER:
-        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::KLARSPUELER);
+        $filterMethod = new OneWordFilterMethod($htmlNormalized, FilterMethods::KLARSPUELER);
         break;
     case FilterMethods::VERNIS:
-        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::VERNIS);
+        $filterMethod = new OneWordFilterMethod($htmlNormalized, FilterMethods::VERNIS);
         break;
     case FilterMethods::POLYNESIEN:
-        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::POLYNESIEN);
+        $filterMethod = new OneWordFilterMethod($htmlNormalized, FilterMethods::POLYNESIEN);
         break;
     case FilterMethods::LESEBRILLE:
         $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::LESEBRILLE);
