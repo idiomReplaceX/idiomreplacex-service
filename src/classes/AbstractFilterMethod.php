@@ -4,12 +4,14 @@ abstract class AbstractFilterMethod implements IFilterMethod {
 
     protected $tokenizer;
     protected $rpTokens = [];
+    protected $subfilter;
 
     /**
      * @param null $text
      */
-    public function __construct($text) {
+    public function __construct($text,$subfilter='') {
         $this->tokenizer = new \tokenizer\HtmlTextTokenizer($text);
+        $this->subfilter = $subfilter;
     }
 
     /**
@@ -24,6 +26,13 @@ abstract class AbstractFilterMethod implements IFilterMethod {
      */
     public function getTokenizer(): \tokenizer\HtmlTextTokenizer {
         return $this->tokenizer;
+    }
+    
+    /**
+     * @return \tokenizer\HtmlTextTokenizer
+     */
+    public function getSubfilter() {
+        return $this->subfilter;
     }
 
     /**
