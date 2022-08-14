@@ -30,11 +30,11 @@ final class KackspechtFilterMethodTest extends TestCase
     $rpTokens = $filter->getReplaceTokens();
     $this->assertEquals(4, count($rpTokens));
 
-    $this->assertEquals("Komma", $rpTokens[0]->getToken());
-    $this->assertEquals($kackspecht, $rpTokens[0]->getReplacement());
+    $this->assertEquals("Komma", $rpTokens[0]["token"]);
+    $this->assertEquals($kackspecht, $rpTokens[0]["replacement"]);
 
-    $this->assertEquals("Kunstprojekt", $rpTokens[1]->getToken());
-    $this->assertEquals($kackspecht, $rpTokens[1]->getReplacement());
+    $this->assertEquals("Kunstprojekt", $rpTokens[1]["token"]);
+    $this->assertEquals($kackspecht, $rpTokens[1]["replacement"]);
   }
 
 }
