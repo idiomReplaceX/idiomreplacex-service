@@ -9,36 +9,59 @@ class OneWordFilterMethod extends AbstractFilterMethod {
      * @return void
      */
     public function makeReplacementTokens() {
-
-        $replace = [];
         
-        //Klarspüler
-        if ($this->getSubfilter()==FilterMethods::KLARSPUELER) $replace=["b"=>"ph","v"=>"f","w"=>"f","d"=>"t"];
+        if ($this->getSubfilter()==FilterMethods::LESEBRILLE) {
+            foreach ($this->getTokenizer()->getTextTokens() as $textToken) {
+                $mix = utf8_decode($textToken->getToken());
+                if(strlen($mix)>4) {
+                    $mixarr = str_split($mix);
+                    $new = $mixarr[0];
+                    unset($mixarr[0]);
+                    $anz = count($mixarr);
+                    $last = $mixarr[$anz];
+                    unset($mixarr[$anz]);
+                    $anz--;
+                    //$debug.="NEW: ".$new."\n ARR".print_r($mixarr,1)."anz: ".$anz;
+                    shuffle($mixarr);
+                    $new.= join("", $mixarr);
+                    $new.=$last;
+                    //$debug.="FINAL: ".$new."\n";
+                    //Log::write("Lesebrille",$new,$tokenText,$debug);
 
-        //Weichspüler
-        if ($this->getSubfilter()==FilterMethods::WEICHSPUELER) $replace=["k"=>"g","h"=>"b","p"=>"b","f"=>"w","t"=>"d"];
-
-        //Vernis
-        if ($this->getSubfilter()==FilterMethods::VERNIS) $replace=["i"=>"y"];
-
-        //Polynesien
-        //k und t vertauschen mit Hilfzeichen 
-        if ($this->getSubfilter()==FilterMethods::POLYNESIEN) $replace=["k"=>"###","t"=>"k","###"=>"t"];
-
-        
-        // $replace = ["b" => "ph", "v" => "f", "w" => "f", "d" => "t"];
-        foreach ($this->getTokenizer()->getTextTokens() as $textToken) {
-
-            $changed = false;
-            foreach ($replace as $key => $value) {
-                if (strpos($textToken->getToken(), $key)) {
-                    $changed = true;
-                    $new_token = str_replace($key, $value, $textToken->getToken());
+                    $rpToken = new ReplaceToken($textToken, utf8_encode($new));
+                    $this->rpTokens[] = $rpToken;
                 }
             }
-            if ($changed) {
-                $rpToken = new ReplaceToken($textToken, $new_token);
-                $this->rpTokens[] = $rpToken;
+            
+        } else {
+            
+            $replace = [];
+
+            //Klarspüler
+            if ($this->getSubfilter()==FilterMethods::KLARSPUELER) $replace=["b"=>"ph","v"=>"f","w"=>"f","d"=>"t"];
+
+            //Weichspüler
+            if ($this->getSubfilter()==FilterMethods::WEICHSPUELER) $replace=["k"=>"g","h"=>"b","p"=>"b","f"=>"w","t"=>"d"];
+
+            //Vernis
+            if ($this->getSubfilter()==FilterMethods::VERNIS) $replace=["i"=>"y"];
+
+            //Polynesien
+            if ($this->getSubfilter()==FilterMethods::POLYNESIEN) $replace=["k"=>"###","t"=>"k","###"=>"t"];
+
+
+            foreach ($this->getTokenizer()->getTextTokens() as $textToken) {
+                $changed = false;
+                foreach ($replace as $key => $value) {
+                    if (strpos($textToken->getToken(), $key)) {
+                        $changed = true;
+                        $new_token = str_replace($key, $value, $textToken->getToken());
+                    }
+                }
+                if ($changed) {
+                    $rpToken = new ReplaceToken($textToken, $new_token);
+                    $this->rpTokens[] = $rpToken;
+                }
             }
         }
     }

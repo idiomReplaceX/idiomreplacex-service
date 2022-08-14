@@ -49,7 +49,6 @@ final class OneWordFilterMethodTest extends TestCase
     ];
     $this->filtertest(FilterMethods::POLYNESIEN,$input,$results);
     
-
   }
   
   public function filtertest($subfilter,$input,$results) {

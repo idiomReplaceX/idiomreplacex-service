@@ -82,7 +82,7 @@ Flight::route('POST|GET /filter(/@method)', function($method){
         $filterMethod = new OneWordFilterMethod($htmlNormalized, FilterMethods::POLYNESIEN);
         break;
     case FilterMethods::LESEBRILLE:
-        $filterMethod = new SingleWordFilterMethod($htmlNormalized, FilterMethods::LESEBRILLE);
+        $filterMethod = new OneWordFilterMethod($htmlNormalized, FilterMethods::LESEBRILLE);
         break;
     case FilterMethods::LAUT:
         $filterMethod = new LautFilterMethod($htmlNormalized);
