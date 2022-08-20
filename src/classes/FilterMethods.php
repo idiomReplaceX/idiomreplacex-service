@@ -13,8 +13,9 @@ class FilterMethods {
   public const LESEBRILLE = 'Lesebrille';
   public const TIPPEX = 'Tipp-Ex';
   public const TIPPEX2 = 'Tipp-Ex Extrem';
+  public const CSVREPL = 'Liste Replace Test';
 
   public static function list(): array {
-    return [self::KACKSPECHT, self::LAUT, self::XX, self::NOVERB, self::BASISFORM, self::LESEBRILLE, self::WEICHSPUELER, self::KLARSPUELER, self::VERNIS, self::POLYNESIEN,self::TIPPEX,self::TIPPEX2];
+    return [self::KACKSPECHT, self::LAUT, self::XX, self::NOVERB, self::BASISFORM, self::LESEBRILLE, self::WEICHSPUELER, self::KLARSPUELER, self::VERNIS, self::POLYNESIEN,self::TIPPEX,self::TIPPEX2,self::CSVREPL];
   }
 }
