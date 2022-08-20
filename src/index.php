@@ -93,6 +93,12 @@ Flight::route('POST|GET /filter(/@method)', function($method){
     case FilterMethods::XX:
         $filterMethod = new XXFilterMethod($htmlNormalized);
         break;
+    case FilterMethods::TIPPEX:
+        $filterMethod = new TippExFilterMethod($htmlNormalized, FilterMethods::TIPPEX);
+        break;
+    case FilterMethods::TIPPEX2:
+        $filterMethod = new TippExFilterMethod($htmlNormalized, FilterMethods::TIPPEX2);
+        break;
     case FilterMethods::BASISFORM:
         $filterMethod = new BasisformFilterMethod($htmlNormalized);
         break;

@@ -27,7 +27,6 @@ class OneWordFilterMethod extends AbstractFilterMethod {
                     $new.=$last;
                     //$debug.="FINAL: ".$new."\n";
                     //Log::write("Lesebrille",$new,$tokenText,$debug);
-
                     $rpToken = new ReplaceToken($textToken, utf8_encode($new));
                     $this->rpTokens[] = $rpToken;
                 }
