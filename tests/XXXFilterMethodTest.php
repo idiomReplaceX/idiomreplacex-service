@@ -6,7 +6,7 @@ final class XXXFilterMethodTest extends TestCase
   public function testBasic(): void
   {
     $xxx = 'XXXX';
-    $filter = new XXFilterMethod('IdiomReplaceX ist ein <strong>Kunstprojekt</strong> zur <em>literarischen Bearbeitung</em> von Webseiten');
+    $filter = new XXFilterMethod('IdiomReplaceX ist ein <strong>Kunstprojekt</strong> zur <em>literarischen Bearbeitung</em> von Webseiten', FilterMethods::XX);
     $rpTokens = $filter->getReplaceTokens();
 
     // $this->assertEquals(9, count($rpTokens)); // FIXME
