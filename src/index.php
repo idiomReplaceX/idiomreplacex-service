@@ -112,7 +112,7 @@ Flight::route('POST|GET /filter(/@method)', function($method){
         $filterMethod = new BasisformFilterMethod($htmlNormalized);
         break;
     default:
-      $filterMethod = new KackspechtFilterMethod($htmlNormalized);
+      $filterMethod = new ReplaceDbFilterMethod($htmlNormalized, $method);
   }
   // respond with JSON data
   Flight::json(new ResponseData($filterMethod->getReplaceTokens(), $htmlChecksum, $method));
