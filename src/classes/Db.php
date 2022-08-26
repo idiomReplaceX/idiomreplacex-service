@@ -3,9 +3,9 @@
 class Db {
   
     const host = 'localhost';
-    const db = 'openthesaurus';
-    const user = 'openthesaurus';
-    const pwd = 's8djr5G2WFUpbTTV';
+    const db = 'idiomx';
+    const user = 'idiomx';
+    const pwd = 'kXwq7HUrR1DPXez7';
     
     public $link;
     
@@ -17,7 +17,7 @@ class Db {
         return $this->link;
     }
     
-    public function queryRows($sql) {
+    public function queryRow($sql) {
         $result = mysqli_query($this->link,$sql);
         if($result) {
             $rows = mysqli_fetch_array($result);
@@ -25,6 +25,18 @@ class Db {
             else return $rows;
         }
         return false;
+    }
+    
+    public static function getFilter() {
+        $db = new self();
+        $result = mysqli_query($db->link,"select * from ersetzungen_filter");
+        $list = [];
+        if($result) {
+            while ($row = $result->fetch_row()) {
+                $list[] = $row[1]??"??";
+            }
+        }
+        return $list;
     }
     
     public function insert($sql) {

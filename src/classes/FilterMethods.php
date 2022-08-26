@@ -18,6 +18,25 @@ class FilterMethods {
   public const CSVREPL = 'Liste Replace Test';
 
   public static function list(): array {
-    return [self::KACKSPECHT, self::LAUT, self::XX, self::HILFE, self::NOVERB, self::BASISFORM, self::LESEBRILLE, self::WEICHSPUELER, self::KLARSPUELER, self::VERNIS, self::POLYNESIEN,self::TIPPEX,self::TIPPEX2,self::FONTSIZE,self::CSVREPL];
+    $static = [
+        self::KACKSPECHT, 
+        self::LAUT, 
+        self::XX, 
+        self::HILFE, 
+        self::NOVERB, 
+        self::BASISFORM, 
+        self::LESEBRILLE, 
+        self::WEICHSPUELER, 
+        self::KLARSPUELER, 
+        self::VERNIS, 
+        self::POLYNESIEN,
+        self::TIPPEX,
+        self::TIPPEX2,
+        self::FONTSIZE,
+        self::CSVREPL
+    ];
+    $dynamic = Db::getFilter();
+    return array_merge($static,$dynamic);
+    
   }
 }
