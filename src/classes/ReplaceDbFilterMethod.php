@@ -21,7 +21,8 @@ class ReplaceDbFilterMethod extends AbstractFilterMethod {
         
         foreach ($this->getTokenizer()->getTextTokens() as $textToken) {
             $new = self::replace($textToken->getToken());
-            if (strlen($new)>0) {
+            if (is_string($new)) {
+                if(empty($new)) $new=(string)"";
                 $rpToken = new ReplaceToken($textToken, $new);
                 $this->rpTokens[] = $rpToken;
             }
@@ -34,7 +35,7 @@ class ReplaceDbFilterMethod extends AbstractFilterMethod {
             $db = new Db();
             $sql = "SELECT ersatz FROM `ersetzungen` WHERE `cat` = " .$this->filter_id. " and `wort` = '" . mysqli_real_escape_string($db->link,$wort). "'";
             $row = $db->queryRow($sql);
-            if(!empty($row)) {
+            if(count($row)>0) {
                 return $row["ersatz"];
             } 
         } else
