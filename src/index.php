@@ -120,6 +120,14 @@ Flight::route('POST|GET /filter(/@method)', function($method){
 
 
 Flight::route('GET /methods', function (){
+  $method_names = [];
+  foreach (FilterMethods::list() as $item){
+    $method_names[] = $item["name"];
+  }
+  Flight::json($method_names);
+});
+
+Flight::route('GET /v2/methods', function (){
   Flight::json(FilterMethods::list());
 });
 
