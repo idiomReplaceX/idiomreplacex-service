@@ -45,7 +45,7 @@ class FilterMethods {
       FilterMethods::filterMethod(self::KLARSPUELER, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::VERNIS, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::POLYNESIEN, "Nils Menrad", "2022", NULL),
-      FilterMethods::filterMethod(self::TIPPEX, "Nils Menrad", "2022", self::TIPPEX . "css"),
+      FilterMethods::filterMethod(self::TIPPEX, "Nils Menrad", "2022", self::TIPPEX . ".css"),
       FilterMethods::filterMethod(self::TIPPEX2, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::FONTSIZE, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::CSVREPL, "Nils Menrad", "2022", NULL)
