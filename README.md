@@ -13,7 +13,7 @@
 with httpie:
 
 ~~~
-http --verify false  'https://idiomreplacex.de/service/methods'     
+http --verify false  'https://idiomreplacex.de/service/src/methods'     
 http --verify false  'https://idiomreplacex.de/service/filter' Content-Type:"application/json"  html="hallo du <strong>welt</strong>, wie geht es dir? Hoffe du hast kein Fieber" htmlChecksum="435335345"     
 ~~~
 

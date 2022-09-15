@@ -102,9 +102,9 @@ class SingleWordFilterMethod implements IFilterMethod {
               if(strlen($token_normalized)>1) {
                   
                   //Ersetzungsfilter Buchstaben
-                  if($this->subfilter==FilterMethods::WEICHSPUELER || 
-                     $this->subfilter==FilterMethods::KLARSPUELER || 
-                     $this->subfilter==FilterMethods::POLYNESIEN || 
+                  if($this->subfilter==FilterMethods::WEICHSPUELER ||
+                     $this->subfilter==FilterMethods::KLARSPUELER ||
+                     $this->subfilter==FilterMethods::POLYNESIEN ||
                      $this->subfilter==FilterMethods::VERNIS) {
                         
                         //Klarspüler
