@@ -13,6 +13,7 @@ abstract class AbstractFilterMethod implements IFilterMethod {
     public function __construct($text,$subfilter='',$documentUrlId='') {
         $this->tokenizer = new \tokenizer\HtmlTextTokenizer($text);
         $this->subfilter = $subfilter;
+        $this->documentUrlId = $documentUrlId;
     }
 
     /**
