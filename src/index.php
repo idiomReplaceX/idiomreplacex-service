@@ -54,9 +54,11 @@ Flight::route('POST|GET /filter(/@method)', function($method){
   if(isset($request->query['html'])){
     $html =  $request->query['html'];
     $htmlChecksum = $request->query['htmlChecksum'];
+    $documentUrlId = $request->query['documentUrlId'];
   } else {
     $html = $request->data->html;
     $htmlChecksum = $request->data->htmlChecksum;
+    $documentUrlId = $request->data->documentUrlId;
   }
 
   if(!$html){
@@ -105,14 +107,11 @@ Flight::route('POST|GET /filter(/@method)', function($method){
     case FilterMethods::FONTSIZE:
         $filterMethod = new TippExFilterMethod($htmlNormalized, FilterMethods::FONTSIZE);
         break;
-    case FilterMethods::CSVREPL:
-        $filterMethod = new ReplaceCSVFilterMethod($htmlNormalized, FilterMethods::CSVREPL);
-        break;
     case FilterMethods::BASISFORM:
         $filterMethod = new BasisformFilterMethod($htmlNormalized);
         break;
     default:
-      $filterMethod = new ReplaceDbFilterMethod($htmlNormalized, $method);
+      $filterMethod = new ReplaceDbFilterMethod($htmlNormalized, $method, $documentUrlId);
   }
   // respond with JSON data
   Flight::json(new ResponseData($filterMethod->getReplaceTokens(), $htmlChecksum, $method));
