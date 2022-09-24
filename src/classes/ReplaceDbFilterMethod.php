@@ -23,18 +23,12 @@ class ReplaceDbFilterMethod extends AbstractFilterMethod {
         $this->filter_art = $r["art"];
         $this->filter_autorin = $r["autorin"];
         
-        
-        echo "ff".$this->getSubfilter().$this->filter_art;
-            die();
-            
-            if($this->filter_art=="kontamination") {
-                $r = $db->queryRow("select * from live where page='".mysqli_real_escape_string($db->link,$this->getDocumentId())."'");
-                var_dump($r);
-                die("nnj");
-            }
-        
-
-            
+        if($this->filter_art=="kontamination") {
+            $r = $db->queryRow("select * from live where page='".mysqli_real_escape_string($db->link,$this->getDocumentId())."'");
+            $sql = "insert into live set zeit='33',page=".mysqli_real_escape_string($db->link,$this->getDocumentId());
+            mysqli_query($db->link, $sql);
+            die("written to db!");
+        }
         
         foreach ($this->getTokenizer()->getTextTokens() as $textToken) {
             $new = self::replace($textToken->getToken());

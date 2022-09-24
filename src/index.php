@@ -60,7 +60,7 @@ Flight::route('POST|GET /filter(/@method)', function($method){
     $htmlChecksum = $request->data->htmlChecksum;
     $documentUrlId = $request->data->documentUrlId;
   }
-
+  
   if(!$html){
     Flight::halt(400, 'HAH parameter text missing in POST body or as request parameter.<br>Request.body=' . $request->getBody() . "<br>Request.data=" . var_export($request->data, true));
   }
