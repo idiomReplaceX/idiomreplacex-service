@@ -71,6 +71,9 @@ Flight::route('POST|GET /filter(/@method)', function($method){
     case FilterMethods::KACKSPECHT:
         $filterMethod = new KackspechtFilterMethod($htmlNormalized);
         break;
+    case FilterMethods::TEXTOFF:
+        $filterMethod = new TextOffFilterMethod($htmlNormalized);
+        break;
     case FilterMethods::WEICHSPUELER:
         $filterMethod = new OneWordFilterMethod($htmlNormalized, FilterMethods::WEICHSPUELER);
         break;

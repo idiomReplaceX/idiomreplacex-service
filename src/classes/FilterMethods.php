@@ -3,6 +3,7 @@
 class FilterMethods {
 
   public const KACKSPECHT = 'Kackspecht';
+  public const TEXTOFF = 'Text aus';
 
   public const XX = 'Xtrem';
 
@@ -37,14 +38,15 @@ class FilterMethods {
       FilterMethods::filterMethod(self::KACKSPECHT, "Andreas Kohlbecker", "2021", NULL),
       FilterMethods::filterMethod(self::LAUT, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::XX, "Nils Menrad", "2022", NULL),
+      FilterMethods::filterMethod(self::TEXTOFF, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::HILFE, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::NOVERB, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::BASISFORM, "Nils Menrad", "2022", NULL),
-      FilterMethods::filterMethod(self::LESEBRILLE, "Nils Menrad", "2022", NULL),
-      FilterMethods::filterMethod(self::WEICHSPUELER, "Nils Menrad", "2022", NULL),
-      FilterMethods::filterMethod(self::KLARSPUELER, "Nils Menrad", "2022", NULL),
-      FilterMethods::filterMethod(self::VERNIS, "Nils Menrad", "2022", NULL),
-      FilterMethods::filterMethod(self::POLYNESIEN, "Nils Menrad", "2022", NULL),
+      FilterMethods::filterMethod(self::LESEBRILLE, "Ann Cotten", "2022", NULL),
+      FilterMethods::filterMethod(self::WEICHSPUELER, "Ann Cotten", "2022", NULL),
+      FilterMethods::filterMethod(self::KLARSPUELER, "Ann Cotten", "2022", NULL),
+      FilterMethods::filterMethod(self::VERNIS, "Ann Cotten", "2022", NULL),
+      FilterMethods::filterMethod(self::POLYNESIEN, "Ann Cotten", "2022", NULL),
       FilterMethods::filterMethod(self::TIPPEX, "Nils Menrad", "2022", self::TIPPEX . ".css"),
       FilterMethods::filterMethod(self::TIPPEX2, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::FONTSIZE, "Nils Menrad", "2022", NULL),
