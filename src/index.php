@@ -93,7 +93,10 @@ Flight::route('POST|GET /filter(/@method)', function($method){
         $filterMethod = new LautFilterMethod($htmlNormalized);
         break;
     case FilterMethods::NOVERB:
-        $filterMethod = new NoVerbFilterMethod($htmlNormalized);
+        $filterMethod = new NoVerbFilterMethod($htmlNormalized, FilterMethods::NOVERB);
+        break;
+    case FilterMethods::VERBMIX:
+        $filterMethod = new NoVerbFilterMethod($htmlNormalized, FilterMethods::VERBMIX);
         break;
     case FilterMethods::XX:
         $filterMethod = new XXFilterMethod($htmlNormalized, FilterMethods::XX);

@@ -27,6 +27,15 @@ class Db {
         return false;
     }
     
+    public function count($sql) {
+        $result = mysqli_query($this->link,$sql);
+        if($result) {
+            return mysqli_num_rows($result);
+            mysqli_free_result($result);
+        }
+        return false;
+    }
+    
     public static function getFilter() {
         $db = new self();
         $result = mysqli_query($db->link,"select * from ersetzungen_filter");

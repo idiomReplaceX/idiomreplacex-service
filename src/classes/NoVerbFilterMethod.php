@@ -1,147 +1,64 @@
 <?php
 
 use classes\tokenizer\ReplaceToken;
+use classes\tokenizer\HtmlTextTokenizer;
 
-class NoVerbFilterMethod implements IFilterMethod {
+class NoVerbFilterMethod extends AbstractFilterMethod {
 
-  private $text =  null;
-  private $rpTokens = [];
-
-  private $wordTokenCount = 0;
-  private $markEveryNthWord = 2;
-
-  private static $HTML_EL_START = '<';
-  private static $HTML_EL_END = '>';
-  /**
-   * @param null $text
-   */
-  public function __construct($text) {
-    $this->text = $text;
-    $this->replacementTokens();
-  }
-
-  /**
-   * @return null
-   */
-  public function getText() {
-    return $this->text;
-  }
-
-  /**
-   * @return array
-   */
-  public function getReplaceTokens(): array {
-    return $this->rpTokens;
-  }
+    /**
+     * @return void
+     */
+    public function makeReplacementTokens() {
 
 
-  /**
-   * Walks the text and creates the list of ReplaceToken
-   */
-  protected function replacementTokens() {
+        foreach ($this->getTokenizer()->getTextTokens() as $textToken) {
+            
+            //Verben aus
+            if ($this->getSubfilter() == FilterMethods::NOVERB) {
+                if (self::isVerb($textToken->getToken())) {
+                    $this->rpTokens[] = new ReplaceToken($textToken, "");
+                }
+            }
+            
+            //Verben mixen
+            if ($this->getSubfilter() == FilterMethods::VERBMIX) {
+                $res = self::verbMix($textToken->getToken());
+                if (!empty($res))
+                    $this->rpTokens[] = new ReplaceToken($textToken, $res);
+            }
+            
+        }
 
-    $isHtmlElement = false;
-    $tokenStartPos = 0;
-    
-    $chrArray = preg_split('//u', $this->text, -1, PREG_SPLIT_NO_EMPTY);
-    
-    $len = count($chrArray);
-    for ($i = 0; $i < $len; $i++){
-      $char = $chrArray[$i];
-      if(self::$HTML_EL_END == $char && $isHtmlElement){
-        // reaching end of HTML element
-        $isHtmlElement = false;
-        $tokenStartPos = $i + 1;
-      } else if(self::$HTML_EL_START == $char){
-        // start of HTML element
-        $isHtmlElement = true;
-        $this->makeReplacementToken($chrArray, $tokenStartPos, $i);
-      } else if(!$isHtmlElement && $this->isWordBoundary($char)) {
-        $this->makeReplacementToken($chrArray, $tokenStartPos, $i);
-        $tokenStartPos = $i + 1;
-      }
     }
-  }
 
-  protected function isWordBoundary($char): bool {
-      return preg_match("/[[:space:]]/", $char);
-      // return array_search($char, TestFilterMethod::$WHITESPACE_CHARS) !== false;
-  }
 
-  /**
-   * @param int $startPos
-   * @param int $endPos
-   *
-   * @return boolean
-   *  TRUE if a new token has been created and added to the rpTokens list, otherwise FALSE
-   */
-  protected function makeReplacementToken(array $chrArray, int $startPos, int $endPos): bool {
-    
-    if ($startPos > -1 && $startPos < $endPos) {
-      $tokenChars = array_slice($chrArray, $startPos, $endPos - $startPos);
-      $tokenText = join($tokenChars);
-      if(preg_match("/[[:alnum:]]/", $tokenText )){
-          
-          if(!is_numeric($tokenText)) {
-              $token_normalized = html_entity_decode($tokenText);
-              if(strlen($token_normalized)>1) {
-                  //Satzzeichen am Ende detektieren
-                  $zeichen = $this->satzzeichen_remove($token_normalized);
-                  
-                  if(self::isVerb($zeichen["text"]??"")) {
-                    //Satzzeichen wieder hinzufügen
-                      
-                    $replacedToken = $this->replaceTokenText($tokenText);
-                    $this->rpTokens[] = new ReplaceToken($startPos, $tokenText,$replacedToken);
-                    return true;
-                  }
-              }
-          }
-      }
+    protected static function isVerb($word) {
+        $db = new Db();
+        $anz = $db->count("SELECT * FROM `verben` WHERE `form` = '" . strtolower($word) . "'");
+        if ($anz > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    return false;
-  }
-  
-  public function satzzeichen_remove($text) {
-      $zeichen = [",",".","!","?",";",":","\"","\'",")","(","»","«"];
-      $found= [];
-      foreach ($zeichen as $value) {
-          $charpos = strrpos($text, $value);
-          if($charpos!==false) {
-              $found[$value] = $charpos;
-              $text = str_replace($value, "", $text);
-          }
-      }
-      $found["text"] = $text;
-      return $found;
-  }
-  
-  
 
- 
-  /**
-   * @param $tokenText
-   *
-   * @return string
-   */
-  protected static function replaceTokenText($tokenText): string {
-        //return '<span style="color: purple">' . $tokenText . '</span>';
-    return '';
-  }
-  
-  protected static function isVerb($word) {
-    
-    $db = new Db();
-    $rows = $db->queryRows("SELECT * FROM `verben` WHERE `form` = '". strtolower($word)."'");
-    if(count($rows)>0) {
-        Log::write("NoVerb",$word,"",$word." gefunden. ".print_r($rows,1));
-        return true;
-    } else {
-        Log::write("NoVerb",$word,"",$word." nicht gefunden.");
-        return false;
+    protected static function verbMix($word) {
+        if(self::isVerb($word)) {
+            $db = new Db();
+            
+            //Fast Random selection in big database
+            $sql2 = "SELECT *
+  FROM verben AS r1 JOIN
+       (SELECT (RAND() *
+                     (SELECT MAX(id)
+                        FROM verben)) AS id)
+        AS r2
+ WHERE r1.id >= r2.id
+ ORDER BY r1.id ASC
+ LIMIT 1;";
+            $res = $db->queryRow($sql2);
+            return $res["form"] ?? "?????";
+        } else return NULL;
     }
-      
-  }
-  
 
 }

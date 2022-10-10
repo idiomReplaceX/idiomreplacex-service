@@ -10,6 +10,7 @@ class FilterMethods {
   public const HILFE = 'Gefängnis';
 
   public const NOVERB = 'Verben aus';
+  public const VERBMIX = 'Verben mix';
 
   public const BASISFORM = 'Basisform';
 
@@ -40,8 +41,9 @@ class FilterMethods {
       FilterMethods::filterMethod(self::XX, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::TEXTOFF, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::HILFE, "Nils Menrad", "2022", NULL),
-      FilterMethods::filterMethod(self::NOVERB, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::BASISFORM, "Nils Menrad", "2022", NULL),
+      FilterMethods::filterMethod(self::NOVERB, "Nils Menrad", "2022", NULL),
+      FilterMethods::filterMethod(self::VERBMIX, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::LESEBRILLE, "Ann Cotten", "2022", NULL),
       FilterMethods::filterMethod(self::WEICHSPUELER, "Ann Cotten", "2022", NULL),
       FilterMethods::filterMethod(self::KLARSPUELER, "Ann Cotten", "2022", NULL),
