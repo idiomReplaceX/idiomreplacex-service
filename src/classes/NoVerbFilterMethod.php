@@ -21,8 +21,8 @@ class NoVerbFilterMethod extends AbstractFilterMethod {
             }
             
             //Verben mixen
-            if ($this->getSubfilter() == FilterMethods::VERBMIX) {
-                $res = self::verbMix($textToken->getToken());
+            if ($this->getSubfilter() == FilterMethods::MULTIMIX) {
+                $res = self::multiMix($textToken->getToken());
                 if (!empty($res))
                     $this->rpTokens[] = new ReplaceToken($textToken, $res);
             }
@@ -34,7 +34,19 @@ class NoVerbFilterMethod extends AbstractFilterMethod {
 
     protected static function isVerb($word) {
         $db = new Db();
-        $anz = $db->count("SELECT * FROM `verben` WHERE `form` = '" . strtolower($word) . "'");
+        $sql = "SELECT * FROM `verben` WHERE `form` = '" . $word . "'";
+        $anz = $db->count($sql);
+        if ($anz > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    protected static function isNomen($word) {
+        $db = new Db();
+        $sql = "SELECT * FROM `nomen` WHERE `form` = '" . $word . "'";
+        $anz = $db->count($sql);
         if ($anz > 0) {
             return true;
         } else {
@@ -42,23 +54,52 @@ class NoVerbFilterMethod extends AbstractFilterMethod {
         }
     }
 
-    protected static function verbMix($word) {
+    protected static function multiMix($word) {
         if(self::isVerb($word)) {
             $db = new Db();
             
-            //Fast Random selection in big database
-            $sql2 = "SELECT *
-  FROM verben AS r1 JOIN
-       (SELECT (RAND() *
-                     (SELECT MAX(id)
-                        FROM verben)) AS id)
-        AS r2
- WHERE r1.id >= r2.id
- ORDER BY r1.id ASC
- LIMIT 1;";
-            $res = $db->queryRow($sql2);
-            return $res["form"] ?? "?????";
-        } else return NULL;
+            $res1 = $db->queryRow("SELECT tags FROM `verben` WHERE `form` = '" . $word . "'");
+            $tags=$res1["tags"]??false;
+            
+            if($tags) {
+                //Fast Random selection in big database
+                // Database is not changing, replace SELECT MAX(id) FROM verben -> 1211160
+                $sql2 = "SELECT *
+                        FROM verben r1
+                        JOIN (
+                          SELECT CEIL(RAND() * 2376740) AS idn 
+                        ) AS r2 ON r1.id >= r2.idn 
+                        WHERE tags='".$tags."'
+                        ORDER BY id ASC LIMIT 0,1;"; 
+                $res = $db->queryRow($sql2);
+            return $res["form"] ?? "schlafen";
+            }
+            
+        } 
+        
+        if(self::isNomen($word)) {
+            $db = new Db();
+            
+            $res1 = $db->queryRow("SELECT tags FROM `nomen` WHERE `form` = '" . $word . "'");
+            $tags=$res1["tags"]??false;
+            
+            if($tags) {
+                //Fast Random selection in big database SUB:AKK:SIN:MAS
+                // Database is not changing, replace SELECT MAX(id) FROM nomen -> 1211160
+                $sql2 = "SELECT *
+                        FROM nomen r1
+                        JOIN (
+                          SELECT CEIL(RAND() * 1211160) AS idn 
+                        ) AS r2 ON r1.id >= r2.idn 
+                        WHERE tags='".$tags."'
+                        ORDER BY id ASC LIMIT 0,1;"; 
+                $res = $db->queryRow($sql2);
+            return $res["form"] ?? "Haustier";
+            }
+            
+        } 
+        return NULL;
+        
     }
 
 }

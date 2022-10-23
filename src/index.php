@@ -89,14 +89,17 @@ Flight::route('POST|GET /filter(/@method)', function($method){
     case FilterMethods::LESEBRILLE:
         $filterMethod = new OneWordFilterMethod($htmlNormalized, FilterMethods::LESEBRILLE);
         break;
+    case FilterMethods::POCKEN:
+        $filterMethod = new OneWordFilterMethod($htmlNormalized, FilterMethods::POCKEN);
+        break;
     case FilterMethods::LAUT:
         $filterMethod = new LautFilterMethod($htmlNormalized);
         break;
     case FilterMethods::NOVERB:
         $filterMethod = new NoVerbFilterMethod($htmlNormalized, FilterMethods::NOVERB);
         break;
-    case FilterMethods::VERBMIX:
-        $filterMethod = new NoVerbFilterMethod($htmlNormalized, FilterMethods::VERBMIX);
+    case FilterMethods::MULTIMIX:
+        $filterMethod = new NoVerbFilterMethod($htmlNormalized, FilterMethods::MULTIMIX);
         break;
     case FilterMethods::XX:
         $filterMethod = new XXFilterMethod($htmlNormalized, FilterMethods::XX);

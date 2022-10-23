@@ -10,7 +10,7 @@ class FilterMethods {
   public const HILFE = 'Gefängnis';
 
   public const NOVERB = 'Verben aus';
-  public const VERBMIX = 'Verben mix';
+  public const MULTIMIX = 'Multimix (langsam)';
 
   public const BASISFORM = 'Basisform';
 
@@ -25,6 +25,8 @@ class FilterMethods {
   public const POLYNESIEN = 'Polynesien';
 
   public const LESEBRILLE = 'Lesebrille';
+  
+  public const POCKEN = 'Pocken';
 
   public const TIPPEX = 'Tipp-Ex';
 
@@ -43,12 +45,13 @@ class FilterMethods {
       FilterMethods::filterMethod(self::HILFE, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::BASISFORM, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::NOVERB, "Nils Menrad", "2022", NULL),
-      FilterMethods::filterMethod(self::VERBMIX, "Nils Menrad", "2022", NULL),
+      FilterMethods::filterMethod(self::MULTIMIX, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::LESEBRILLE, "Ann Cotten", "2022", NULL),
       FilterMethods::filterMethod(self::WEICHSPUELER, "Ann Cotten", "2022", NULL),
       FilterMethods::filterMethod(self::KLARSPUELER, "Ann Cotten", "2022", NULL),
       FilterMethods::filterMethod(self::VERNIS, "Ann Cotten", "2022", NULL),
       FilterMethods::filterMethod(self::POLYNESIEN, "Ann Cotten", "2022", NULL),
+      FilterMethods::filterMethod(self::POCKEN, "Ann Cotten", "2022", NULL),
       FilterMethods::filterMethod(self::TIPPEX, "Nils Menrad", "2022", self::TIPPEX . ".css"),
       FilterMethods::filterMethod(self::TIPPEX2, "Nils Menrad", "2022", NULL),
       FilterMethods::filterMethod(self::FONTSIZE, "Nils Menrad", "2022", NULL),

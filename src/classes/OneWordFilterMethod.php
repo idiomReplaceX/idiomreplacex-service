@@ -47,6 +47,9 @@ class OneWordFilterMethod extends AbstractFilterMethod {
 
             //Polynesien
             if ($this->getSubfilter()==FilterMethods::POLYNESIEN) $replace=["k"=>"###","t"=>"k","###"=>"t"];
+            
+            //Pocken
+            if ($this->getSubfilter()==FilterMethods::POCKEN) $replace=["i"=>"<span style='color: red;'>i</span>"];
 
 
             foreach ($this->getTokenizer()->getTextTokens() as $textToken) {
